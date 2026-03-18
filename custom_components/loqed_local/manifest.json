@@ -1,7 +1,6 @@
 {
   "domain": "loqed_local",
   "name": "LOQED Local",
-  "brand": "loqed",
   "codeowners": ["@howmation"],
   "config_flow": true,
   "documentation": "https://github.com/howmation/ha-loqed-local",
