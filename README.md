@@ -1,16 +1,19 @@
-# LOQED Smart Lock - Home Assistant Integration
+# LOQED Local - Home Assistant Integration
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
 
-Intégration Home Assistant pour la serrure connectée **LOQED Touch Smart Lock**, via l'API locale du bridge.
+Intégration Home Assistant pour le contrôle **100% local** de la serrure connectée **LOQED Touch Smart Lock**, via l'API locale du bridge.
+
+> **Note :** Cette intégration fonctionne en parallèle de l'intégration officielle LOQED (cloud). Elle utilise le domaine `loqed_local` et crée un appareil séparé suffixé "(Local)". Vous pouvez utiliser les deux simultanément.
 
 ## Fonctionnalités
 
 - **Entité Lock** : verrouiller (night lock), déverrouiller (day lock / loquet), ouvrir (open)
 - **Capteurs** : batterie (%), tension batterie, signal Wi-Fi, signal Bluetooth, état du verrou
 - **Binary sensor** : connectivité de la serrure
-- **Communication 100% locale** via le bridge LOQED (pas de cloud)
+- **Communication 100% locale** via le bridge LOQED (pas de cloud, pas d'internet requis)
 - **Polling** toutes les 10 secondes
+- **Coexiste** avec l'intégration officielle LOQED
 
 ## Prérequis
 
@@ -22,9 +25,9 @@ Intégration Home Assistant pour la serrure connectée **LOQED Touch Smart Lock*
 
 1. Dans HACS, allez dans **Intégrations** → menu **⋮** → **Dépôts personnalisés**
 2. Ajoutez l'URL du dépôt avec la catégorie **Intégration**
-3. Cherchez "LOQED" et installez
+3. Cherchez "LOQED Local" et installez
 4. Redémarrez Home Assistant
-5. Allez dans **Paramètres** → **Appareils et services** → **Ajouter une intégration** → **LOQED Smart Lock**
+5. Allez dans **Paramètres** → **Appareils et services** → **Ajouter une intégration** → **LOQED Local**
 
 ## Configuration
 
@@ -43,17 +46,14 @@ Intégration Home Assistant pour la serrure connectée **LOQED Touch Smart Lock*
 | **Déverrouiller** | `DAY_LOCK` | Position loquet (déverrouillé mais fermé) |
 | **Ouvrir** | `OPEN` | Ouverture complète (déverrouillage + rétraction du pêne) |
 
-## Entités créées
+## Différences avec l'intégration officielle LOQED
 
-| Entité | Type | Description |
-|--------|------|-------------|
-| `lock.<nom>` | Lock | Contrôle principal de la serrure |
-| `sensor.<nom>_battery` | Sensor | Niveau de batterie en % |
-| `sensor.<nom>_battery_voltage` | Sensor | Tension batterie (désactivé par défaut) |
-| `sensor.<nom>_bolt_state` | Sensor | État du verrou (open / day_lock / night_lock) |
-| `sensor.<nom>_wifi_signal` | Sensor | Force du signal Wi-Fi (désactivé par défaut) |
-| `sensor.<nom>_bluetooth_signal` | Sensor | Force du signal BLE (désactivé par défaut) |
-| `binary_sensor.<nom>_lock_online` | Binary Sensor | Connectivité de la serrure |
+| | LOQED (officielle) | LOQED Local (cette intégration) |
+|---|---|---|
+| Communication | Cloud | Réseau local uniquement |
+| Dépendance internet | Oui | Non |
+| Latence | Variable | ~instantanée |
+| Domaine HA | `loqed` | `loqed_local` |
 
 ## Licence
 

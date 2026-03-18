@@ -1,4 +1,4 @@
-"""Config flow for the LOQED Smart Lock integration."""
+"""Config flow for the LOQED Local integration."""
 
 from __future__ import annotations
 
@@ -32,8 +32,8 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
 )
 
 
-class LoqedConfigFlow(ConfigFlow, domain=DOMAIN):
-    """Handle a config flow for LOQED Smart Lock."""
+class LoqedLocalConfigFlow(ConfigFlow, domain=DOMAIN):
+    """Handle a config flow for LOQED Local."""
 
     VERSION = 1
 
@@ -50,7 +50,7 @@ class LoqedConfigFlow(ConfigFlow, domain=DOMAIN):
             lock_name = user_input[CONF_LOCK_NAME].strip()
 
             # Deduplicate by IP + key ID
-            unique_id = f"loqed_{ip_address}_{local_key_id}"
+            unique_id = f"loqed_local_{ip_address}_{local_key_id}"
             await self.async_set_unique_id(unique_id)
             self._abort_if_unique_id_configured()
 
@@ -63,11 +63,11 @@ class LoqedConfigFlow(ConfigFlow, domain=DOMAIN):
             except LoqedConnectionError:
                 errors["base"] = "cannot_connect"
             except Exception:  # noqa: BLE001
-                _LOGGER.exception("Unexpected error during LOQED setup")
+                _LOGGER.exception("Unexpected error during LOQED Local setup")
                 errors["base"] = "unknown"
             else:
                 return self.async_create_entry(
-                    title=lock_name,
+                    title=f"{lock_name} (Local)",
                     data={
                         CONF_IP_ADDRESS: ip_address,
                         CONF_LOCAL_KEY_ID: local_key_id,

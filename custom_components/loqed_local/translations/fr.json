@@ -2,8 +2,8 @@
   "config": {
     "step": {
       "user": {
-        "title": "Configurer la serrure LOQED",
-        "description": "Entrez les informations de connexion de votre bridge LOQED. Vous les trouverez dans la page de configuration API (app.loqed.com → API).",
+        "title": "Configurer LOQED Local",
+        "description": "Entrez les informations de connexion locale de votre bridge LOQED. Cette intégration communique directement avec le bridge sur votre réseau, indépendamment de l'intégration cloud officielle LOQED.",
         "data": {
           "lock_name": "Nom de la serrure",
           "ip_address": "Adresse IP du bridge",
@@ -22,7 +22,7 @@
       "unknown": "Une erreur inattendue est survenue."
     },
     "abort": {
-      "already_configured": "Cette serrure LOQED est déjà configurée."
+      "already_configured": "Cette serrure LOQED (local) est déjà configurée."
     }
   },
   "entity": {

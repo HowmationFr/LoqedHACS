@@ -1,6 +1,6 @@
-"""Constants for the LOQED Smart Lock integration."""
+"""Constants for the LOQED Local integration."""
 
-DOMAIN = "loqed"
+DOMAIN = "loqed_local"
 MANUFACTURER = "LOQED"
 
 CONF_IP_ADDRESS = "ip_address"

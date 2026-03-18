@@ -1,4 +1,4 @@
-"""Lock platform for the LOQED Smart Lock integration."""
+"""Lock platform for the LOQED Local integration."""
 
 from __future__ import annotations
 
@@ -6,38 +6,36 @@ import logging
 from typing import Any
 
 from homeassistant.components.lock import LockEntity, LockEntityFeature
-from homeassistant.core import HomeAssistant, callback
+from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from . import LoqedConfigEntry
+from . import LoqedLocalConfigEntry
 from .api import LoqedConnectionError
 from .const import (
-    BOLT_STATE_DAY_LOCK,
     BOLT_STATE_NIGHT_LOCK,
-    BOLT_STATE_OPEN,
     CONF_LOCK_NAME,
     DOMAIN,
     MANUFACTURER,
 )
-from .coordinator import LoqedDataCoordinator
+from .coordinator import LoqedLocalDataCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_entry(
     hass: HomeAssistant,
-    entry: LoqedConfigEntry,
+    entry: LoqedLocalConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up the LOQED lock entity."""
     coordinator = entry.runtime_data
-    async_add_entities([LoqedLock(coordinator, entry)])
+    async_add_entities([LoqedLocalLock(coordinator, entry)])
 
 
-class LoqedLock(CoordinatorEntity[LoqedDataCoordinator], LockEntity):
-    """Representation of a LOQED smart lock."""
+class LoqedLocalLock(CoordinatorEntity[LoqedLocalDataCoordinator], LockEntity):
+    """Representation of a LOQED smart lock (local control)."""
 
     _attr_has_entity_name = True
     _attr_name = None  # Use device name
@@ -45,8 +43,8 @@ class LoqedLock(CoordinatorEntity[LoqedDataCoordinator], LockEntity):
 
     def __init__(
         self,
-        coordinator: LoqedDataCoordinator,
-        entry: LoqedConfigEntry,
+        coordinator: LoqedLocalDataCoordinator,
+        entry: LoqedLocalConfigEntry,
     ) -> None:
         """Initialize the lock entity."""
         super().__init__(coordinator)
@@ -54,10 +52,10 @@ class LoqedLock(CoordinatorEntity[LoqedDataCoordinator], LockEntity):
         lock_name = entry.data.get(CONF_LOCK_NAME, "LOQED Lock")
         mac = coordinator.data.bridge_mac_wifi if coordinator.data else "unknown"
 
-        self._attr_unique_id = f"loqed_{mac}_lock"
+        self._attr_unique_id = f"loqed_local_{mac}_lock"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, mac)},
-            name=lock_name,
+            name=f"{lock_name} (Local)",
             manufacturer=MANUFACTURER,
             model="Touch Smart Lock",
             sw_version="1.0",

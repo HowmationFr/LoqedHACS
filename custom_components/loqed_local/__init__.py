@@ -1,4 +1,4 @@
-"""The LOQED Smart Lock integration."""
+"""The LOQED Local integration."""
 
 from __future__ import annotations
 
@@ -11,17 +11,17 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .api import LoqedApiClient
 from .const import CONF_IP_ADDRESS, CONF_LOCAL_KEY_ID, CONF_SECRET, DOMAIN
-from .coordinator import LoqedDataCoordinator
+from .coordinator import LoqedLocalDataCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
 PLATFORMS: list[Platform] = [Platform.LOCK, Platform.SENSOR, Platform.BINARY_SENSOR]
 
-type LoqedConfigEntry = ConfigEntry[LoqedDataCoordinator]
+type LoqedLocalConfigEntry = ConfigEntry[LoqedLocalDataCoordinator]
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: LoqedConfigEntry) -> bool:
-    """Set up LOQED Smart Lock from a config entry."""
+async def async_setup_entry(hass: HomeAssistant, entry: LoqedLocalConfigEntry) -> bool:
+    """Set up LOQED Local from a config entry."""
     session = async_get_clientsession(hass)
     api = LoqedApiClient(
         session=session,
@@ -30,7 +30,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: LoqedConfigEntry) -> boo
         secret=entry.data[CONF_SECRET],
     )
 
-    coordinator = LoqedDataCoordinator(hass, api)
+    coordinator = LoqedLocalDataCoordinator(hass, api)
     await coordinator.async_config_entry_first_refresh()
 
     entry.runtime_data = coordinator
@@ -39,6 +39,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: LoqedConfigEntry) -> boo
     return True
 
 
-async def async_unload_entry(hass: HomeAssistant, entry: LoqedConfigEntry) -> bool:
-    """Unload a LOQED config entry."""
+async def async_unload_entry(hass: HomeAssistant, entry: LoqedLocalConfigEntry) -> bool:
+    """Unload a LOQED Local config entry."""
     return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)

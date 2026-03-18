@@ -1,5 +1,5 @@
 {
-  "name": "LOQED Smart Lock",
+  "name": "LOQED Local",
   "render_readme": true,
   "homeassistant": "2024.1.0"
 }

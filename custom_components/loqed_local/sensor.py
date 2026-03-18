@@ -1,4 +1,4 @@
-"""Sensor platform for the LOQED Smart Lock integration."""
+"""Sensor platform for the LOQED Local integration."""
 
 from __future__ import annotations
 
@@ -17,10 +17,10 @@ from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from . import LoqedConfigEntry
+from . import LoqedLocalConfigEntry
 from .api import LoqedStatus
 from .const import CONF_LOCK_NAME, DOMAIN, MANUFACTURER
-from .coordinator import LoqedDataCoordinator
+from .coordinator import LoqedLocalDataCoordinator
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -79,18 +79,18 @@ SENSOR_DESCRIPTIONS: tuple[LoqedSensorEntityDescription, ...] = (
 
 async def async_setup_entry(
     hass: HomeAssistant,
-    entry: LoqedConfigEntry,
+    entry: LoqedLocalConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Set up LOQED sensor entities."""
+    """Set up LOQED Local sensor entities."""
     coordinator = entry.runtime_data
     async_add_entities(
-        LoqedSensor(coordinator, entry, description)
+        LoqedLocalSensor(coordinator, entry, description)
         for description in SENSOR_DESCRIPTIONS
     )
 
 
-class LoqedSensor(CoordinatorEntity[LoqedDataCoordinator], SensorEntity):
+class LoqedLocalSensor(CoordinatorEntity[LoqedLocalDataCoordinator], SensorEntity):
     """Representation of a LOQED sensor."""
 
     entity_description: LoqedSensorEntityDescription
@@ -98,8 +98,8 @@ class LoqedSensor(CoordinatorEntity[LoqedDataCoordinator], SensorEntity):
 
     def __init__(
         self,
-        coordinator: LoqedDataCoordinator,
-        entry: LoqedConfigEntry,
+        coordinator: LoqedLocalDataCoordinator,
+        entry: LoqedLocalConfigEntry,
         description: LoqedSensorEntityDescription,
     ) -> None:
         """Initialize the sensor."""
@@ -108,10 +108,10 @@ class LoqedSensor(CoordinatorEntity[LoqedDataCoordinator], SensorEntity):
         mac = coordinator.data.bridge_mac_wifi if coordinator.data else "unknown"
         lock_name = entry.data.get(CONF_LOCK_NAME, "LOQED Lock")
 
-        self._attr_unique_id = f"loqed_{mac}_{description.key}"
+        self._attr_unique_id = f"loqed_local_{mac}_{description.key}"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, mac)},
-            name=lock_name,
+            name=f"{lock_name} (Local)",
             manufacturer=MANUFACTURER,
             model="Touch Smart Lock",
         )

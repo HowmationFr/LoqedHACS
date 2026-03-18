@@ -2,8 +2,8 @@
   "config": {
     "step": {
       "user": {
-        "title": "Configure LOQED Smart Lock",
-        "description": "Enter the connection details for your LOQED bridge. You can find these in the LOQED API Config page (app.loqed.com → API).",
+        "title": "Configure LOQED Local",
+        "description": "Enter the local connection details for your LOQED bridge. This integration communicates directly with the bridge on your network, independently of the official LOQED cloud integration.",
         "data": {
           "lock_name": "Lock name",
           "ip_address": "Bridge IP address",
@@ -22,7 +22,7 @@
       "unknown": "An unexpected error occurred."
     },
     "abort": {
-      "already_configured": "This LOQED lock is already configured."
+      "already_configured": "This LOQED lock (local) is already configured."
     }
   },
   "entity": {

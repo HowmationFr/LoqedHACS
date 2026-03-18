@@ -1,4 +1,4 @@
-"""Data update coordinator for the LOQED integration."""
+"""Data update coordinator for the LOQED Local integration."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ from .const import DEFAULT_SCAN_INTERVAL, DOMAIN
 _LOGGER = logging.getLogger(__name__)
 
 
-class LoqedDataCoordinator(DataUpdateCoordinator[LoqedStatus]):
+class LoqedLocalDataCoordinator(DataUpdateCoordinator[LoqedStatus]):
     """Coordinator to poll the LOQED bridge for lock status."""
 
     def __init__(self, hass: HomeAssistant, api: LoqedApiClient) -> None:
