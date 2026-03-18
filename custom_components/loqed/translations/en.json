@@ -1,0 +1,58 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configure LOQED Smart Lock",
+        "description": "Enter the connection details for your LOQED bridge. You can find these in the LOQED API Config page (app.loqed.com → API).",
+        "data": {
+          "lock_name": "Lock name",
+          "ip_address": "Bridge IP address",
+          "local_key_id": "Local key ID",
+          "secret": "Secret (API key)"
+        },
+        "data_description": {
+          "ip_address": "The local IP of your LOQED bridge (e.g., 10.0.10.29)",
+          "local_key_id": "The key ID shown in your API configuration",
+          "secret": "The base64 secret / auth key from the API config page"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to the LOQED bridge. Check the IP address and network.",
+      "unknown": "An unexpected error occurred."
+    },
+    "abort": {
+      "already_configured": "This LOQED lock is already configured."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "battery_percentage": {
+        "name": "Battery"
+      },
+      "battery_voltage": {
+        "name": "Battery voltage"
+      },
+      "wifi_strength": {
+        "name": "Wi-Fi signal"
+      },
+      "ble_strength": {
+        "name": "Bluetooth signal"
+      },
+      "bolt_state": {
+        "name": "Bolt state",
+        "state": {
+          "open": "Open",
+          "day_lock": "Day lock (latch)",
+          "night_lock": "Night lock (locked)",
+          "unknown": "Unknown"
+        }
+      }
+    },
+    "binary_sensor": {
+      "lock_online": {
+        "name": "Lock online"
+      }
+    }
+  }
+}

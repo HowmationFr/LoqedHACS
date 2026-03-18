@@ -1,0 +1,58 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configurer la serrure LOQED",
+        "description": "Entrez les informations de connexion de votre bridge LOQED. Vous les trouverez dans la page de configuration API (app.loqed.com → API).",
+        "data": {
+          "lock_name": "Nom de la serrure",
+          "ip_address": "Adresse IP du bridge",
+          "local_key_id": "ID de la clé locale",
+          "secret": "Secret (clé API)"
+        },
+        "data_description": {
+          "ip_address": "L'IP locale de votre bridge LOQED (ex : 10.0.10.29)",
+          "local_key_id": "L'ID de la clé affiché dans la configuration API",
+          "secret": "Le secret en base64 / clé d'authentification de la page API"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Impossible de se connecter au bridge LOQED. Vérifiez l'adresse IP et le réseau.",
+      "unknown": "Une erreur inattendue est survenue."
+    },
+    "abort": {
+      "already_configured": "Cette serrure LOQED est déjà configurée."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "battery_percentage": {
+        "name": "Batterie"
+      },
+      "battery_voltage": {
+        "name": "Tension batterie"
+      },
+      "wifi_strength": {
+        "name": "Signal Wi-Fi"
+      },
+      "ble_strength": {
+        "name": "Signal Bluetooth"
+      },
+      "bolt_state": {
+        "name": "État du verrou",
+        "state": {
+          "open": "Ouvert",
+          "day_lock": "Verrou jour (loquet)",
+          "night_lock": "Verrou nuit (verrouillé)",
+          "unknown": "Inconnu"
+        }
+      }
+    },
+    "binary_sensor": {
+      "lock_online": {
+        "name": "Serrure en ligne"
+      }
+    }
+  }
+}
