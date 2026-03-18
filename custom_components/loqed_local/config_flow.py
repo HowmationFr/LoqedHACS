@@ -5,7 +5,6 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-import aiohttp
 import voluptuous as vol
 
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
@@ -59,7 +58,7 @@ class LoqedLocalConfigFlow(ConfigFlow, domain=DOMAIN):
             api = LoqedApiClient(session, ip_address, local_key_id, secret)
 
             try:
-                status = await api.async_get_status()
+                await api.async_get_status()
             except LoqedConnectionError:
                 errors["base"] = "cannot_connect"
             except Exception:  # noqa: BLE001

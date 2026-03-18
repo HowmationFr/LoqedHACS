@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Configurer LOQED Local",
-        "description": "Entrez les informations de connexion locale de votre bridge LOQED. Cette intégration communique directement avec le bridge sur votre réseau, indépendamment de l'intégration cloud officielle LOQED.",
+        "description": "Entrez les informations de connexion locale de votre bridge LOQED. Après l'installation, configurez un webhook sur votre bridge pointant vers l'URL affichée dans les logs de l'intégration.",
         "data": {
           "lock_name": "Nom de la serrure",
           "ip_address": "Adresse IP du bridge",
